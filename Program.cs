@@ -47,21 +47,20 @@ Console.WriteLine("Hello, C# OOP!");
 //  SECONDA CLASSE non contiene nessuna lista, ha solo riferimenti nella prima (banca) e terza classe (prestito)
 //  TERZA CLASSE fa solo riferimento alla seconda classe (cliente)
 
-Bank monteDeiPaschi = new Bank();
-Console.WriteLine(monteDeiPaschi);
+Bank monteDeiPaschi = new Bank("Monte dei Paschi");
+
+
+Console.WriteLine(monteDeiPaschi.Name);
+
+monteDeiPaschi.;
 
 public class Bank
 {
     public string Name { get; set; }
-
-    List<Client> clients = new List<Client>
+    public Bank(string name)
     {
-        new Client("Ugo", "DeUghi", "UGDUGH97C26G999W", 5000),
-        new Client("Agostino", "Pique", "IUESTO97C26G999W", 4000),
-        new Client("Francesco", "DeFranchi", "FRNDFR88G06F888W", 1500),
-        new Client("Leonardo", "Da Vinci", "LNRDVN58G65D856G", 6000)
-    };
-
+        this.Name = name;
+    }
 
 
     List<Loan> loans = new List<Loan>
@@ -72,49 +71,61 @@ public class Bank
         new Loan(2500, "Da Vinci Leonardo", 250, "Aprile 1758", "Febbraio 1759")
 
     };
-}
 
-public class Client
-{
-    public string Name { set; get; }    
-    public string Surname { set; get; } 
-    public string PersonalNumber { set; get; }
-    public int Salary { set; get; }
-
-    public Client(string name, string surname, string personalNumber, int salary)
+    public void PrintLoan()
     {
-        this.Name = name;
-        this.Surname = surname;
-        this.PersonalNumber = personalNumber;
-        this.Salary = salary;
+        if(loans.Count == 0)
+        {
+            Console.WriteLine("Non ci sono prestiti aperti");
+        }
+
+        foreach(Loan loan in loans)
+        {
+            Console.WriteLine("File del prestito di: ");
+            Console.WriteLine(loan.Holder);
+            Console.WriteLine("--------");
+            Console.WriteLine("Rata mensile: ");
+            Console.WriteLine(loan.MonthAmount);
+            Console.WriteLine("Cifra data in prestito: ");
+            Console.WriteLine(loan.Amount);
+        }
+        
+    }
+    
+
+    List<Client> clients = new List<Client>
+    {
+        new Client("Ugo", "DeUghi", "UGDUGH97C26G999W", 5000),
+        new Client("Agostino", "Pique", "IUESTO97C26G999W", 4000),
+        new Client("Francesco", "DeFranchi", "FRNDFR88G06F888W", 1500),
+        new Client("Leonardo", "Da Vinci", "LNRDVN58G65D856G", 6000)
+    };
+
+    public void AddUser(string name, string surname, string personalNumber, int salary)
+    {
+        clients.Add(new Client(name, surname, personalNumber, salary);
+        Console.WriteLine("Cliente aggiunto con successo");
+    }
+
+    public void GetUser(string personalNumber)
+    {
+        if(personalNumber == null)
+        {
+            Console.WriteLine("Inserisci il codice fiscale per ricercare il cliente.");
+        }
+        else
+        {
+            foreach(Client client in clients)
+            {
+                if(client.PersonalNumber == personalNumber)
+                {
+                    Console.WriteLine("Utente trovato: ");
+                    Console.WriteLine(client.Name + client.Surname);
+                }
+            }
+        }
 
     }
-}
 
-public class Loan
-{
-    //I prestiti sono caratterizzati da
-    //  - ID
-    //  - intestatario del prestito (il cliente),
-    //  - un ammontare,
-    //  - una rata,
-    //  - una data inizio,
-    //  - una data fine.
-
-    public static int ID { get; set; }
-    public string Holder { get; set; }
-    public int Amount { get; set; }
-    public int MonthAmount { get; set; }
-    public string StartAt { get; set; }
-    public string EndAt { get; set; }
-
-    public Loan(int amount, string holder, int monthAmount, string startAt, string endAt)
-    {
-        ID++;
-        this.Holder = holder;
-        this.Amount = amount;
-        this.MonthAmount = monthAmount;
-        this.StartAt = startAt;
-        this.EndAt = endAt;
-    }
+    
 }
