@@ -49,83 +49,63 @@ Console.WriteLine("Hello, C# OOP!");
 
 Bank monteDeiPaschi = new Bank("Monte dei Paschi");
 
-
+Console.WriteLine("Benvenuto alla banca ");
 Console.WriteLine(monteDeiPaschi.Name);
 
-monteDeiPaschi.;
+// MENU PRINCIPALE
+Menu:
+Console.WriteLine("Cosa vuoi fare? (scrivi il numero dell'operazione)");
 
-public class Bank
+Console.WriteLine("1. Cercare un cliente");
+Console.WriteLine("2. Aggiungere un cliente");
+int userAnswer = Convert.ToInt32(Console.ReadLine());
+
+
+switch (userAnswer)
 {
-    public string Name { get; set; }
-    public Bank(string name)
-    {
-        this.Name = name;
-    }
+    case 1:
 
+        Console.WriteLine("Inserisci il codice fiscale del cliente che stai cercando");
+        string personalNumber = Console.ReadLine();
+        Client c = monteDeiPaschi.GetUser(personalNumber);
 
-    List<Loan> loans = new List<Loan>
-    {
-        new Loan(4500, "Pique Agostino", 250, "Aprile 2020", "Febbraio 2025"),
-        new Loan(2600, "DeUghi Ugo", 360, "Gennaio 2018", "Gennaio 2023"),
-        new Loan(1600, "DeFranchi Francesco", 180, "Maggio 2017", "Maggio 2019"),
-        new Loan(2500, "Da Vinci Leonardo", 250, "Aprile 1758", "Febbraio 1759")
+        Console.WriteLine("Cosa vuoi fare? (scrivi il numero dell'operazione)");
 
-    };
+        Console.WriteLine("1. Modifica il cliente");
 
-    public void PrintLoan()
-    {
-        if(loans.Count == 0)
+        Console.WriteLine("2. Vedi i prestiti dell'utente");
+
+        Console.WriteLine("3. Torna al menu");
+
+        int userSearchAnswer = Convert.ToInt32(Console.ReadLine());
+
+        if(userSearchAnswer == 1)
         {
-            Console.WriteLine("Non ci sono prestiti aperti");
-        }
-
-        foreach(Loan loan in loans)
+            Console.WriteLine("Modifica del cliente");
+        }else if(userSearchAnswer == 2)
         {
-            Console.WriteLine("File del prestito di: ");
-            Console.WriteLine(loan.Holder);
-            Console.WriteLine("--------");
-            Console.WriteLine("Rata mensile: ");
-            Console.WriteLine(loan.MonthAmount);
-            Console.WriteLine("Cifra data in prestito: ");
-            Console.WriteLine(loan.Amount);
+            Console.WriteLine("Vedi i prestiti del cliente");
         }
-        
-    }
-    
+      
+        goto Menu;
 
-    List<Client> clients = new List<Client>
-    {
-        new Client("Ugo", "DeUghi", "UGDUGH97C26G999W", 5000),
-        new Client("Agostino", "Pique", "IUESTO97C26G999W", 4000),
-        new Client("Francesco", "DeFranchi", "FRNDFR88G06F888W", 1500),
-        new Client("Leonardo", "Da Vinci", "LNRDVN58G65D856G", 6000)
-    };
 
-    public void AddUser(string name, string surname, string personalNumber, int salary)
-    {
-        clients.Add(new Client(name, surname, personalNumber, salary);
-        Console.WriteLine("Cliente aggiunto con successo");
-    }
+    case 2:
 
-    public void GetUser(string personalNumber)
-    {
-        if(personalNumber == null)
-        {
-            Console.WriteLine("Inserisci il codice fiscale per ricercare il cliente.");
-        }
-        else
-        {
-            foreach(Client client in clients)
-            {
-                if(client.PersonalNumber == personalNumber)
-                {
-                    Console.WriteLine("Utente trovato: ");
-                    Console.WriteLine(client.Name + client.Surname);
-                }
-            }
-        }
+        Console.WriteLine("Inserisci i dati del nuovo cliente partendo da:");
 
-    }
+        Console.WriteLine("nome:");
+        string userName = Console.ReadLine();
 
-    
+        Console.WriteLine("cognome:");
+        string surname = Console.ReadLine();
+
+        Console.WriteLine("Codice fiscale:");
+        string setPersonalNumber = Console.ReadLine();
+
+        Console.WriteLine("Stipendio mensile:");
+        int salary = Convert.ToInt32(Console.ReadLine());
+
+        monteDeiPaschi.AddUser(userName, surname, setPersonalNumber, salary);
+        break;
 }
